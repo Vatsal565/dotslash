@@ -48,7 +48,7 @@ export default function Navbar() {
   const links = [
     { href: '/', label: 'Home', icon: Home },
     { href: '/explore', label: 'Explore', icon: Star },
-    { href: '/chat', label: 'Chat', icon: MessageCircle },
+    { href: '/build', label: 'Build with Us', icon: MessageCircle },
     { href: '/settings', label: 'Settings', icon: Settings },
   ];
 

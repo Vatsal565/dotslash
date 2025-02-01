@@ -109,7 +109,7 @@ const SignIn: React.FC = () => {
               <div className="bg-white/10 p-2 rounded-lg backdrop-blur-sm group-hover:bg-white/20 transition-all">
                 <Car className="w-8 h-8" />
               </div>
-              <span className="text-2xl font-bold">CarRental</span>
+              <span className="text-2xl font-bold">AI Competitor</span>
             </Link>
 
             <div className="space-y-8">
@@ -119,41 +119,8 @@ const SignIn: React.FC = () => {
                   <br />
                   Begins Here
                 </h1>
-                <p className="text-orange-50/90 text-lg leading-relaxed max-w-md">
-                  Experience premium car rental services with unlimited miles
-                  and flexible pickup options.
-                </p>
               </div>
 
-              {/* Feature Cards */}
-              <div className="grid grid-cols-2 gap-4 mt-12">
-                {[
-                  {
-                    icon: Star,
-                    title: "Premium Fleet",
-                    desc: "Top-tier vehicles",
-                  },
-                  {
-                    icon: Shield,
-                    title: "Secure Booking",
-                    desc: "Protected transactions",
-                  },
-                ].map((feature, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 + index * 0.1 }}
-                    className="bg-white/10 backdrop-blur-sm p-4 rounded-xl hover:bg-white/20 transition-all"
-                  >
-                    <feature.icon className="w-6 h-6 text-white mb-3" />
-                    <h3 className="text-white font-semibold mb-1">
-                      {feature.title}
-                    </h3>
-                    <p className="text-orange-50/80 text-sm">{feature.desc}</p>
-                  </motion.div>
-                ))}
-              </div>
             </div>
           </div>
 

@@ -2,15 +2,19 @@
 'use client';
 
 import Link from 'next/link';
+import DotMatrixText from './DottedText';
 
 export default function Hero() {
   return (
-    <div className="bg-white min-h-screen flex items-center justify-center">
-      <div className="text-center max-w-2xl">
+    <div className="bg-white min-h-screen flex pt-[130px]  justify-center">
+      <div className="text-center ">
         {/* Heading */}
-        <h1 className="text-5xl font-bold text-gray-900 mb-6">
-          How engineers build
+        <h1 className="text-6xl font-bold text-gray-900 mb-2 ">
+        Unlock The Power of
         </h1>
+        <div className=''>
+            <DotMatrixText />
+        </div>
 
         {/* Subheading */}
         <p className="text-xl text-gray-600 mb-8">
