@@ -26,14 +26,16 @@ export default function Navbar() {
 
   const NavLink = ({ href, label, icon: Icon }: NavLinkProps) => {
     const isActive = pathname === href;
-    
+
     return (
       <Link href={href}>
         <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 ${
-            isActive ? 'bg-level-3 text-white shadow-lg' : 'text-level-3 hover:bg-level-2'
+            isActive
+              ? 'bg-black text-white shadow-lg' // Level 3 (Black) for active state
+              : 'text-black hover:bg-orange-500 hover:text-white' // Level 2 (Orange) for hover
           }`}
         >
           <Icon className="w-5 h-5" />
@@ -51,71 +53,80 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      scrolled ? 'bg-level-1/80 backdrop-blur-md shadow-lg' : 'bg-level-1'
-    }`}>
+    <nav
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        scrolled ? 'bg-white/80 backdrop-blur-md shadow-lg' : 'bg-white' // Level 1 (White) for background
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <motion.div 
-            className="flex items-center gap-3" 
+          {/* Logo Section */}
+          <motion.div
+            className="flex items-center gap-3"
             whileHover={{ scale: 1.05 }}
           >
-            <div className="h-10 w-10 rounded-xl bg-level-4 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-xl bg-black flex items-center justify-center"> {/* Level 3 (Black) for logo background */}
               <span className="text-white font-bold text-xl">A</span>
             </div>
-            <span className="text-xl font-bold text-level-4">AstroVeda</span>
+            <span className="text-xl font-bold text-black">AI Competitor</span> {/* Level 3 (Black) for text */}
           </motion.div>
 
+          {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-4">
             {links.map((link) => (
               <NavLink key={link.href} {...link} />
             ))}
           </div>
 
+          {/* Sign In Button (Desktop) */}
           <div className="hidden md:flex items-center gap-4">
-           <Link href="/signin"> 
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 px-6 py-2 rounded-xl bg-level-4 text-white font-medium hover:opacity-90 transition-opacity shadow-lg"
-            >
-              <User className="w-5 h-5" />
-              Sign In
-            </motion.button>
-            </Link> 
+            <Link href="/signin">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center gap-2 px-6 py-2 rounded-xl bg-black text-white font-medium hover:bg-orange-500 transition-colors shadow-lg" // Level 3 (Black) for button
+              >
+                <User className="w-5 h-5" />
+                Sign In
+              </motion.button>
+            </Link>
           </div>
 
+          {/* Mobile Menu Toggle */}
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden"
           >
             {isOpen ? (
-              <X className="w-6 h-6 text-level-4" />
+              <X className="w-6 h-6 text-black" /> 
             ) : (
-              <Menu className="w-6 h-6 text-level-4" />
+              <Menu className="w-6 h-6 text-black" />
             )}
           </motion.button>
         </div>
 
+        {/* Mobile Menu */}
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden py-4 border-t border-level-2"
+            className="md:hidden py-4 border-t border-orange-500" // Level 2 (Orange) for border
           >
             <div className="space-y-2">
               {links.map((link) => (
                 <NavLink key={link.href} {...link} />
               ))}
-              <motion.button
-                whileTap={{ scale: 0.95 }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-level-4 text-white font-medium shadow-lg"
-              >
-                <User className="w-5 h-5" />
-                Sign In
-              </motion.button>
+              <Link href="/signin">
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-black text-white font-medium shadow-lg hover:bg-orange-500 transition-colors" // Level 3 (Black) for button
+                >
+                  <User className="w-5 h-5" />
+                  Sign In
+                </motion.button>
+              </Link>
             </div>
           </motion.div>
         )}

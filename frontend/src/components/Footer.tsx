@@ -88,7 +88,7 @@ const SocialButton: React.FC<SocialButtonProps> = ({ icon: Icon, label, href }) 
 const Footer: React.FC = () => {
   return (
     <footer className="relative  pt-20 overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-2 bg-level-2" />
+      <div className="absolute top-0 left-0 right-0 h-0 bg-level-2" />
 
       <div className="container mx-auto px-6">
         <motion.div
