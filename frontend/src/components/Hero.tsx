@@ -18,14 +18,14 @@ export default function Hero() {
 
         {/* Subheading */}
         <p className="text-xl text-gray-600 mb-8">
-          An open-source platform to build, ship and monitor agentic systems.
+        Uncover competitive intelligence with AI-driven company research and analysis.
         </p>
 
         {/* Buttons */}
         <div className="flex justify-center space-x-4">
           <Link
             href="/build"
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-6 py-3 bg-level-2 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             BUILD YOUR AGENT
           </Link>

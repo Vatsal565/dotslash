@@ -66,7 +66,7 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
           >
             <div className="h-10 w-10 rounded-xl bg-black flex items-center justify-center"> {/* Level 3 (Black) for logo background */}
-              <span className="text-white font-bold text-xl">A</span>
+              <span className="text-white  font-bold text-xl">A</span>
             </div>
             <span className="text-xl font-bold text-black">AI Competitor</span> {/* Level 3 (Black) for text */}
           </motion.div>

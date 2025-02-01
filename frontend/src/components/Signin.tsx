@@ -134,7 +134,7 @@ const SignIn: React.FC = () => {
             <div className="grid grid-cols-3 gap-8">
               {[
                 { value: "50K+", label: "Happy Customers" },
-                { value: "100+", label: "Premium Cars" },
+                { value: "100+", label: "Users" },
                 { value: "4.9/5", label: "User Rating" },
               ].map((stat, index) => (
                 <div key={index} className="text-center">

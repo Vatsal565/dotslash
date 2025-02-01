@@ -1,11 +1,15 @@
 'use client'
 import Contact from '@/components/ContactUs'
+import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar'
 import React from 'react'
 
 const page = () => {
   return (
-    <div className='bg-[#f5f5f5]'>
+    <div className=''>
+      <Navbar />
       <Contact />
+      <Footer />
     </div>
   )
 }

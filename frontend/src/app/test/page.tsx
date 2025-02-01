@@ -1,11 +1,10 @@
-import MovingDotsText from '@/components/DottedText'
-import AgentAI from '@/components/DottedText'
+import AgentCard from '@/components/ChatbotCard'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-     <MovingDotsText/>
+      <AgentCard />
     </div>
   )
 }

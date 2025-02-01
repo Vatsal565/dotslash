@@ -50,10 +50,10 @@ const NewsletterInput: React.FC = () => {
         type="email"
         placeholder="Enter your email"
         className="w-full px-4 py-3 rounded-l-xl border-2 border-r-0 border-[#151616] 
-          focus:outline-none focus:ring-1 ring-level-3 text-black"
+          focus:outline-none focus:ring-1 ring-level-2 text-black"
       />
       <button
-        className="bg-level-3 px-6 rounded-r-xl border-2 border-[#151616] flex items-center gap-2 
+        className="bg-level-2 px-6 rounded-r-xl border-2 border-[#151616] flex items-center gap-2 
           font-bold hover:bg-level-4 transition-colors">
         Subscribe
         <motion.div
@@ -87,27 +87,11 @@ const SocialButton: React.FC<SocialButtonProps> = ({ icon: Icon, label, href }) 
 
 const Footer: React.FC = () => {
   return (
-    <footer className="relative  pt-20 overflow-hidden">
+    <footer className="relative bg-white  pt-20 overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-0 bg-level-2" />
 
       <div className="container mx-auto px-6">
-        <motion.div
-          className="max-w-2xl mx-auto text-center mb-20"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}>
-          <div
-            className="inline-block bg-level-3 px-4 py-1 rounded-full border-2 border-[#151616] 
-            shadow-[4px_4px_0px_0px_#151616] mb-4">
-            <Star className="w-5 h-5 inline-block mb-[0.80px] mr-1" /> Join Our Community
-          </div>
-          <h2 className="text-2xl font-bold mb-4 text-black">
-            Stay Connected with Us
-          </h2>
-          <p className="text-[#151616]/70 mb-6">
-            Get weekly insights and updates
-          </p>
-          <NewsletterInput />
-        </motion.div>
+        
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 py-16 border-t-2 border-[#151616]">
           <div className="md:col-span-2 space-y-6">
@@ -115,7 +99,7 @@ const Footer: React.FC = () => {
               className="flex items-center gap-3"
               whileHover={{ scale: 1.02 }}>
               <div
-                className="w-12 h-12 bg-level-3 rounded-xl flex items-center justify-center 
+                className="w-12 h-12 bg-level-2 rounded-xl flex items-center justify-center 
                 border-2 border-[#151616] shadow-[4px_4px_0px_0px_#151616]">
                 <Bot className="w-7 h-7 text-black" />
               </div>
@@ -166,7 +150,7 @@ const Footer: React.FC = () => {
           <div className="flex items-center gap-2 text-sm text-[#151616]/70">
             <span>© 2025 SoulBuddy. All rights reserved.</span>
             <span className="flex items-center gap-1">
-              Made with <Heart className="w-4 h-4 text-level-3" /> by Team
+              Made with <Heart className="w-4 h-4 text-level-2" /> by Team
               404_#NotFound
             </span>
           </div>
@@ -175,7 +159,7 @@ const Footer: React.FC = () => {
             className="flex items-center gap-3 bg-white px-4 py-2 rounded-full border-2 
               border-[#151616] shadow-[2px_2px_0px_0px_#151616]"
             whileHover={{ y: -2 }}>
-            <span className="w-2 h-2 bg-level-3 rounded-full animate-pulse" />
+            <span className="w-2 h-2 bg-level-2 rounded-full animate-pulse" />
             <span className="text-sm font-medium text-[#151616]">Support Available 24/7</span>
           </motion.div>
         </div>
