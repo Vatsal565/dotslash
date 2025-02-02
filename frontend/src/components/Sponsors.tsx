@@ -37,8 +37,8 @@ const BrandLogos = () => {
   ];
 
   return (
-    <div className="w-full max-w-6xl mx-auto py-12 bg-white">
-      <h2 className="text-xl font-medium text-gray-900 text-center tracking-wider mb-8">
+    <div className="w-screen mx-auto py-12 bg-white">
+      <h2 className="text-4xl font-bold text-gray-900 text-center tracking-wider mb-8">
           Trusted by Businesses like
         </h2>
       

@@ -11,6 +11,7 @@ import {
   Star,
   MessageSquare,
 } from "lucide-react";
+import send from "@/hooks/sendMail";
 
 // Define the type for the form data
 interface FormData {
@@ -54,19 +55,22 @@ const Contact: React.FC = () => {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-    console.log("Form submitted:", formData);
-    // Reset form after submission
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
-    }, 3000);
+    // Do something with the form values.
+		// ✅ This will be type-safe and validated.
+		e.preventDefault(); // Prevent default form submission behavior
+
+    // Extract values correctly from formData
+    const { name, email, message } = formData;
+
+    // Call send function
+    send({ name, email, message });
+		// toast.success("Thanks for Submitting Response");
+		setFormData({
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
   };
 
   const contactInfo: ContactInfo[] = [
