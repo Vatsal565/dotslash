@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Lock, ChevronRight, Eye, EyeOff, AlertCircle } from "lucide-react";
-import { Link } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -14,7 +13,7 @@ const Register = () => {
     password: false,
     confirmPassword: false,
   });
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-white to-gray-50 flex justify-center">
