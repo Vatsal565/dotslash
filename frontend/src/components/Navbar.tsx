@@ -65,8 +65,8 @@ export default function Navbar() {
             className="flex items-center gap-3"
             whileHover={{ scale: 1.05 }}
           >
-            <div className="h-10 w-10 rounded-xl bg-black flex items-center justify-center"> {/* Level 3 (Black) for logo background */}
-              <Image src="/file.svg" width={50} height={50} alt="AI Competitor" className="h-8 w-8" />
+            <div className="h-10 w-10 rounded-xl flex items-center justify-center"> {/* Level 3 (Black) for logo background */}
+              <Image src="/logo.svg" width={50} height={50} alt="AI Competitor" className="h-8 w-8" />
             </div>
             <span className="text-xl font-bold text-black">Luminary AI</span> {/* Level 3 (Black) for text */}
           </motion.div>
