@@ -21,7 +21,7 @@ import ReactMarkdown from "react-markdown";
 interface Message {
   id: string;
   text: string;
-  type: 'user' | 'response';
+  type: "user" | "response";
   timestamp: Date;
 }
 
@@ -44,34 +44,42 @@ interface QuickActionsProps {
   onSelect: (actionText: string) => void;
 }
 
-interface WebSocketMessage {
-  type: 'requestId' | 'response' | 'error';
-  requestId?: string;
-  message?: string;
-}
-
 // Custom Markdown Components
 const MarkdownComponents: Record<string, React.FC<MarkdownComponentProps>> = {
   p: ({ children, ...props }) => (
-    <p className="text-gray-800 leading-relaxed" {...props}>{children}</p>
+    <p className="text-gray-800 leading-relaxed" {...props}>
+      {children}
+    </p>
   ),
   h1: ({ children, ...props }) => (
-    <h1 className="text-2xl font-semibold text-gray-800 my-3" {...props}>{children}</h1>
+    <h1 className="text-2xl font-semibold text-gray-800 my-3" {...props}>
+      {children}
+    </h1>
   ),
   h2: ({ children, ...props }) => (
-    <h2 className="text-xl font-semibold text-gray-800 my-2" {...props}>{children}</h2>
+    <h2 className="text-xl font-semibold text-gray-800 my-2" {...props}>
+      {children}
+    </h2>
   ),
   h3: ({ children, ...props }) => (
-    <h3 className="text-lg font-semibold text-gray-800 my-2" {...props}>{children}</h3>
+    <h3 className="text-lg font-semibold text-gray-800 my-2" {...props}>
+      {children}
+    </h3>
   ),
   ul: ({ children, ...props }) => (
-    <ul className="list-disc list-inside my-2 space-y-1" {...props}>{children}</ul>
+    <ul className="list-disc list-inside my-2 space-y-1" {...props}>
+      {children}
+    </ul>
   ),
   ol: ({ children, ...props }) => (
-    <ol className="list-decimal list-inside my-2 space-y-1" {...props}>{children}</ol>
+    <ol className="list-decimal list-inside my-2 space-y-1" {...props}>
+      {children}
+    </ol>
   ),
   li: ({ children, ...props }) => (
-    <li className="text-gray-800" {...props}>{children}</li>
+    <li className="text-gray-800" {...props}>
+      {children}
+    </li>
   ),
   code: ({ children, ...props }) => (
     <code className="bg-gray-100 rounded px-1 py-0.5 font-mono text-sm" {...props}>
@@ -92,7 +100,7 @@ const MarkdownComponents: Record<string, React.FC<MarkdownComponentProps>> = {
 
 const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
   const [isCopied, setIsCopied] = useState<boolean>(false);
-  const isUser = message.type === 'user';
+  const isUser = message.type === "user";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(message.text);
@@ -111,11 +119,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
           className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center
             ${isUser ? "bg-orange-500" : "bg-gray-900"}`}
         >
-          {isUser ? (
-            <User className="w-4 h-4 text-white" />
-          ) : (
-            <Bot className="w-4 h-4 text-white" />
-          )}
+          {isUser ? <User className="w-4 h-4 text-white" /> : <Bot className="w-4 h-4 text-white" />}
         </div>
 
         <div
@@ -179,11 +183,10 @@ const TypingIndicator: React.FC = () => (
 
 const QuickActions: React.FC<QuickActionsProps> = ({ onSelect }) => {
   const actions: QuickAction[] = [
-    { id: '1', icon: Star, text:  "Schedule Appointment" },
-    { id: '2', icon: Moon, text:"Medication Reminder" },
-    { id: '3', icon: Heart, text: "Symptom Checker" },
-    { id: '4', icon: Infinity, text: "Find Doctor" },
-
+    { id: "1", icon: Star, text: "Schedule Appointment" },
+    { id: "2", icon: Moon, text: "Medication Reminder" },
+    { id: "3", icon: Heart, text: "Symptom Checker" },
+    { id: "4", icon: Infinity, text: "Find Doctor" },
   ];
 
   return (
@@ -207,20 +210,11 @@ const QuickActions: React.FC<QuickActionsProps> = ({ onSelect }) => {
 
 const ChatPage: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [inputMessage, setInputMessage] = useState<string>('');
+  const [inputMessage, setInputMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [ws, setWs] = useState<WebSocket | null>(null);
-  const [requestId, setRequestId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [isConnected, setIsConnected] = useState<boolean>(false);
-  
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const welcomeMessageShownRef = useRef<boolean>(false);
-  const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const reconnectAttemptsRef = useRef<number>(0);
-  
-  const MAX_RECONNECT_ATTEMPTS = 5;
-  const RECONNECT_DELAY = 2000;
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -231,150 +225,74 @@ const ChatPage: React.FC = () => {
   }, [messages]);
 
   useEffect(() => {
-    if (!welcomeMessageShownRef.current) {
-      setMessages([{
-        id: '0',
-        text: "Hi! I'm your AI assistant. How can I help you today?",
-        type: 'response',
-        timestamp: new Date()
-      }]);
-      welcomeMessageShownRef.current = true;
+    if (messages.length === 0) {
+      setMessages([
+        {
+          id: "0",
+          text: "Hi! I'm your AI assistant. How can I help you today?",
+          type: "response",
+          timestamp: new Date(),
+        },
+      ]);
     }
   }, []);
 
-  const connectWebSocket = useCallback(() => {
-    if (reconnectAttemptsRef.current >= MAX_RECONNECT_ATTEMPTS) {
-      setError("Maximum reconnection attempts reached. Please refresh the page.");
-      return;
-    }
+  const sendMessage = useCallback(async () => {
+    if (!inputMessage.trim() || isLoading) return;
 
     try {
-      const wsConnection = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL || '');
+      setIsLoading(true);
+      setError(null);
 
-      wsConnection.onopen = () => {
-        setIsConnected(true);
-        setError(null);
-        reconnectAttemptsRef.current = 0;
+      // Add user's message to the chat
+      const userMessage: Message = {
+        id: Date.now().toString(),
+        text: inputMessage,
+        type: "user",
+        timestamp: new Date(),
       };
+      setMessages((prev) => [...prev, userMessage]);
 
-      wsConnection.onmessage = (event: MessageEvent) => {
-        const data: WebSocketMessage = JSON.parse(event.data);
-        
-        if (data.type === 'requestId' && data.requestId) {
-          setRequestId(data.requestId);
-        } else if (data.type === 'response' && data.message) {
-          setMessages(prev => [...prev, {
-            id: Date.now().toString(),
-            text: data.message || '',
-            type: 'response',
-            timestamp: new Date()
-          }]);
-          setIsLoading(false);
-        } else if (data.type === 'error' && data.message) {
-          setError(data.message);
-          setIsLoading(false);
+      // Send message to the backend API
+      const response = await fetch(
+        "https://dotslash-backend.onrender.com/medical-bot",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ msg: inputMessage }),
         }
+      );
+
+      if (!response.ok) throw new Error("Failed to send message");
+
+      const data = await response.json();
+      console.log(data);
+
+      // Handle the bot response from 'response' field
+      const botMessage: Message = {
+        id: Date.now().toString(),
+        text: data.response, // Accessing 'response' field now
+        type: "response",
+        timestamp: new Date(),
       };
 
-      wsConnection.onclose = () => {
-        setIsConnected(false);
-        const delay = RECONNECT_DELAY * Math.pow(2, reconnectAttemptsRef.current);
-        reconnectTimeoutRef.current = setTimeout(() => {
-          reconnectAttemptsRef.current++;
-          connectWebSocket();
-        }, delay);
-      };
-
-      wsConnection.onerror = () => {
-        setError("Connection error. Attempting to reconnect...");
-        setIsLoading(false);
-        wsConnection.close();
-      };
-
-      setWs(wsConnection);
+      setMessages((prev) => [...prev, botMessage]);
     } catch (err) {
-      setError("Failed to establish WebSocket connection. Retrying...");
-      const delay = RECONNECT_DELAY * Math.pow(2, reconnectAttemptsRef.current);
-      reconnectTimeoutRef.current = setTimeout(() => {
-        reconnectAttemptsRef.current++;
-        connectWebSocket();
-      }, delay);
+      setError(err instanceof Error ? err.message : "An unknown error occurred.");
+    } finally {
+      setIsLoading(false);
+      setInputMessage("");
     }
-  }, []);
-
-  useEffect(() => {
-    connectWebSocket();
-    return () => {
-      if (ws) ws.close();
-      if (reconnectTimeoutRef.current) {
-        clearTimeout(reconnectTimeoutRef.current);
-      }
-    };
-  }, [connectWebSocket]);
+  }, [inputMessage, isLoading]);
 
   const handleQuickAction = (action: string) => {
     setInputMessage(action);
     sendMessage();
   };
 
-  const sendMessage = useCallback(async () => {
-    if (!inputMessage.trim() || !requestId || isLoading || !isConnected) return;
-
-    try {
-      setIsLoading(true);
-      setError(null);
-      
-      const newMessage: Message = {
-        id: Date.now().toString(),
-        text: inputMessage,
-        type: 'user',
-        timestamp: new Date()
-      };
-      
-      setMessages(prev => [...prev, newMessage]);
-      
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL || '', {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          input_value: inputMessage,
-          requestId,
-          userId: localStorage.getItem("user")
-        }),
-      });
-
-      if (!response.ok) throw new Error("Failed to send message");
-      setInputMessage("");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An unknown error occurred.");
-      setIsLoading(false);
-    }
-  }, [inputMessage, requestId, isLoading, isConnected]);
-
   return (
     <div className="max-w-4xl mx-auto p-4">
       <div className="space-y-4">
-        Connection Status
-        {!isConnected && (
-          <div className="bg-red-50 p-4 rounded-2xl">
-            <div className="flex items-start gap-3">
-              <WifiOff className="w-5 h-5 text-red-500 mt-0.5" />
-              <div>
-                <p className="text-sm text-red-700">
-                  Connection lost. {reconnectAttemptsRef.current < MAX_RECONNECT_ATTEMPTS
-                    ? "Attempting to reconnect..."
-                    : "Please refresh the page to try again."}
-                </p>
-                {reconnectAttemptsRef.current < MAX_RECONNECT_ATTEMPTS && (
-                  <p className="text-xs text-red-500 mt-1">
-                    Attempt {reconnectAttemptsRef.current + 1} of {MAX_RECONNECT_ATTEMPTS}
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Main Chat Container */}
         <div className="bg-white rounded-2xl shadow-lg">
           {/* Chat Header */}
@@ -397,7 +315,7 @@ const ChatPage: React.FC = () => {
               <motion.button
                 whileHover={{ scale: 1.05, rotate: 180 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setMessages([messages[0]])}
+                onClick={() => setMessages([])}
                 className="p-2 hover:bg-gray-100 rounded-full"
               >
                 <RefreshCw className="w-5 h-5" />
@@ -433,7 +351,7 @@ const ChatPage: React.FC = () => {
                 <input
                   type="text"
                   value={inputMessage}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => 
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setInputMessage(e.target.value)
                   }
                   onKeyPress={(e: React.KeyboardEvent) => {
@@ -445,13 +363,13 @@ const ChatPage: React.FC = () => {
                   placeholder="Type your message..."
                   className="flex-1 px-4 py-2 rounded-full bg-gray-100 focus:outline-none focus:ring-2 ring-orange-500
                     disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={isLoading || !isConnected}
+                  disabled={isLoading}
                 />
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => sendMessage()}
-                  disabled={isLoading || !inputMessage.trim() || !isConnected}
+                  disabled={isLoading || !inputMessage.trim()}
                   className="px-6 py-2 bg-orange-500 text-white rounded-full
                     flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed
                     hover:bg-orange-600 transition-colors"
@@ -467,15 +385,5 @@ const ChatPage: React.FC = () => {
     </div>
   );
 };
-
-// Environment variables type declarations
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      NEXT_PUBLIC_WEBSOCKET_URL: string;
-      NEXT_PUBLIC_API_URL: string;
-    }
-  }
-}
 
 export default ChatPage;
