@@ -85,7 +85,7 @@ const Contact: React.FC = () => {
     {
       icon: Mail,
       title: "Email",
-      details: ["info@carrental.com", "support@luminaryai.com"],
+      details: ["info@luminaryai.com", "support@luminaryai.com"],
       color: "text-orange-500",
       bgColor: "bg-orange-50",
     },
