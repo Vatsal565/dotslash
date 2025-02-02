@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
+import Link from 'next/link';
 
 interface Agent {
   title: string;
@@ -11,7 +12,7 @@ interface Agent {
 
 const agents: Agent[] = [
   {
-    title: 'Legal Assistant',
+    title: 'Healthcare Assistant',
     subtitle: 'Your AI-powered legal companion',
     imagePath: '/healthcare.png',
     isFirst: true
@@ -98,9 +99,11 @@ const AgentCard: React.FC<Agent & {
             </div>
 
             {isFirst ? (
+              <Link href="/chat">
               <button className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
                 Try Now
               </button>
+              </Link>
             ) : (
               <button className="w-full py-2 bg-gray-300 text-gray-500 rounded-lg cursor-not-allowed font-medium">
                 Coming Soon

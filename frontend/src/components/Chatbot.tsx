@@ -298,7 +298,7 @@ const ChatPage: React.FC = () => {
                   <Bot className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h2 className="font-semibold">AI Assistant</h2>
+                  <h2 className="font-semibold">Doc AI</h2>
                   <div className="flex items-center gap-2 text-sm text-gray-500">
                     <span className="flex items-center gap-1">
                       <span className="w-2 h-2 bg-green-500 rounded-full"></span>
