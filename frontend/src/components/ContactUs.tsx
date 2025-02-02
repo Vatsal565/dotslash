@@ -85,7 +85,7 @@ const Contact: React.FC = () => {
     {
       icon: Mail,
       title: "Email",
-      details: ["info@carrental.com", "support@carrental.com"],
+      details: ["info@carrental.com", "support@luminaryai.com"],
       color: "text-orange-500",
       bgColor: "bg-orange-50",
     },
@@ -129,7 +129,7 @@ const Contact: React.FC = () => {
             </h1>
             <p className="text-gray-600 text-lg leading-relaxed">
               We&apos;d love to hear from you. Let us know how we can help make your
-              car rental experience even better.
+              AI experience even better with your business
             </p>
           </motion.div>
         </div>
