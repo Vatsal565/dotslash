@@ -10,15 +10,15 @@ export default function Hero() {
       <div className="text-center ">
         {/* Heading */}
         <h1 className="text-6xl font-bold text-gray-900 mb-2 ">
-        Unlock The Power of
+          Unlock The Power of
         </h1>
         <div className=''>
-            <DotMatrixText />
+          <DotMatrixText />
         </div>
 
         {/* Subheading */}
         <p className="text-xl text-gray-600 mb-8">
-        Uncover competitive intelligence with AI-driven company research and analysis.
+          Harness AI agents for powerful solutions.
         </p>
 
         {/* Buttons */}

@@ -1,4 +1,3 @@
-
 import Navbar from '@/components/Navbar'
 import SeoGenerator from '@/components/StartForm'
 import React from 'react'

@@ -1,11 +1,9 @@
 'use client'
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import {
   Bot,
-  Star,
   Mail,
-  ArrowRight,
   Twitter,
   Github,
   Instagram,
@@ -37,34 +35,6 @@ const FooterLink: React.FC<FooterLinkProps> = ({ href, children }) => (
     {children}
   </motion.a>
 );
-
-const NewsletterInput: React.FC = () => {
-  const [isHovered, setIsHovered] = useState<boolean>(false);
-
-  return (
-    <motion.div
-      className="relative flex"
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}>
-      <input
-        type="email"
-        placeholder="Enter your email"
-        className="w-full px-4 py-3 rounded-l-xl border-2 border-r-0 border-[#151616] 
-          focus:outline-none focus:ring-1 ring-level-2 text-black"
-      />
-      <button
-        className="bg-level-2 px-6 rounded-r-xl border-2 border-[#151616] flex items-center gap-2 
-          font-bold hover:bg-level-4 transition-colors">
-        Subscribe
-        <motion.div
-          animate={isHovered ? { x: [0, 5, 0] } : {}}
-          transition={{ duration: 1, repeat: Infinity }}>
-          <ArrowRight className="w-5 h-5" />
-        </motion.div>
-      </button>
-    </motion.div>
-  );
-};
 
 const SocialButton: React.FC<SocialButtonProps> = ({ icon: Icon, label, href }) => (
   <motion.a

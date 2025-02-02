@@ -1,7 +1,7 @@
 'use client';
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Building2, Globe, MapPin, Briefcase, BarChart2, ArrowLeft } from "lucide-react";
+import { Building2, MapPin, Briefcase, BarChart2, ArrowLeft } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface CompanyData {

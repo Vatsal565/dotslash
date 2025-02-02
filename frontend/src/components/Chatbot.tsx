@@ -11,7 +11,6 @@ import {
   Heart,
   Infinity,
   RefreshCw,
-  WifiOff,
   Copy,
   Check,
 } from "lucide-react";
@@ -33,7 +32,7 @@ interface QuickAction {
 
 interface MarkdownComponentProps {
   children: React.ReactNode;
-  [key: string]: any;
+  [key: string] : unknown;
 }
 
 interface MessageBubbleProps {
@@ -235,7 +234,7 @@ const ChatPage: React.FC = () => {
         },
       ]);
     }
-  }, []);
+  }, [messages.length]);
 
   const sendMessage = useCallback(async () => {
     if (!inputMessage.trim() || isLoading) return;
