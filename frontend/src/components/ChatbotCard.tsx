@@ -1,33 +1,47 @@
 'use client'
 import React, { useState } from 'react';
-import { Scale, BrainCircuit, Building2, LineChart } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 
 interface Agent {
   title: string;
   subtitle: string;
-  icon: React.ElementType;
-  iconColor: string;
-}
-
-interface AgentCardProps extends Agent {
-  isHovered: boolean;
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
+  imagePath: string;
+  isFirst?: boolean;
 }
 
 const agents: Agent[] = [
-  { title: 'Legal', subtitle: 'Agent', icon: Scale, iconColor: 'text-red-500' },
-  { title: 'AI', subtitle: 'Agent', icon: BrainCircuit, iconColor: 'text-blue-500' },
-  { title: 'Business', subtitle: 'Agent', icon: Building2, iconColor: 'text-green-500' },
-  { title: 'Analytics', subtitle: 'Agent', icon: LineChart, iconColor: 'text-purple-500' }
+  { 
+    title: 'Legal', 
+    subtitle: 'Agent', 
+    imagePath: '/healthcare.png',
+    isFirst: true 
+  },
+  { 
+    title: 'AI', 
+    subtitle: 'Agent', 
+    imagePath: '/Legal.png'
+  },
+  { 
+    title: 'Business', 
+    subtitle: 'Agent', 
+    imagePath: '/Ecommerce.png'
+  },
+  { 
+    title: 'Analytics', 
+    subtitle: 'Agent', 
+    imagePath: '/Finance.png'
+  }
 ];
 
-const AgentCard: React.FC<AgentCardProps> = ({ 
-  title, 
-  subtitle, 
-  icon: Icon, 
-  iconColor,
+const AgentCard: React.FC<Agent & { 
+  isHovered: boolean; 
+  onMouseEnter: () => void; 
+  onMouseLeave: () => void;
+}> = ({
+  title,
+  subtitle,
+  imagePath,
+  isFirst,
   isHovered,
   onMouseEnter,
   onMouseLeave
@@ -35,15 +49,21 @@ const AgentCard: React.FC<AgentCardProps> = ({
   return (
     <div
       className="transform transition-all duration-300 ease-out"
-      style={{ 
+      style={{
         transform: isHovered ? 'scale(1.05)' : 'scale(1)',
       }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <Card className="w-72 h-[400px] bg-level-1 rounded-xl p-6 text-white hover:shadow-2xl transition-shadow">
-        <div className="bg-neutral-900 rounded-xl p-4 mb-4 inline-block">
-          <Icon className={`w-6 h-6 ${iconColor}`} />
+      <Card 
+        className={`${isFirst ? 'w-80 h-[440px]' : 'w-72 h-[400px]'} bg-level-1 rounded-xl p-6 text-white hover:shadow-2xl transition-shadow`}
+      >
+        <div className="w-full h-1/2 mb-4">
+          <img 
+            src={imagePath} 
+            alt={title} 
+            className="w-full h-full object-cover rounded-xl"
+          />
         </div>
 
         <div className="space-y-1">
@@ -84,7 +104,7 @@ const AgentRow: React.FC = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <div className="w-full px-8">
+    <div className="w-full pt-32">
       <div className="flex justify-between items-center max-w-7xl mx-auto gap-6">
         {agents.map((agent, index) => (
           <AgentCard

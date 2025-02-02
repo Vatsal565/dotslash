@@ -1,5 +1,4 @@
-// CompanyForm.tsx
-'use client'
+'use client';
 import { useState } from "react";
 import { Building2, MapPin, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,6 +9,26 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { MultiStepLoader } from "./MultiStepLoader";
 import CompanyInfoDisplay from "./Analysis";
 
+interface CompanyData {
+  company: {
+    official_name: string;
+    industry_type: string;
+    headquarters: string;
+    key_products_services: string[];
+    website: string;
+  };
+  competitors: {
+    name: string;
+    industry_type: string;
+    headquarters: string;
+    key_products_services: string[];
+  }[];
+}
+
+const encodeURL = (str: string): string => {
+  return encodeURI(str).replace(/'/g, '%27').replace(/,/g, '%2C');
+};
+
 const CompanyForm = () => {
   const [formData, setFormData] = useState({
     companyName: "",
@@ -18,14 +37,15 @@ const CompanyForm = () => {
   const [errors, setErrors] = useState<{ companyName?: string; companyAddress?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [companyData, setCompanyData] = useState<CompanyData | null>(null);
 
   const loadingStates = [
-    { text: "Validating company information..." }, // White (Level 1)
-    { text: "Processing company details..." },     // Orange (Level 2)
-    { text: "Finalizing registration..." }         // Black (Level 3)
+    { text: "Validating company information..." },
+    { text: "Processing company details..." },
+    { text: "Finalizing registration..." }
   ];
 
-  const validateForm = () => {
+  const validateForm = (): boolean => {
     const newErrors: { companyName?: string; companyAddress?: string } = {};
     if (!formData.companyName.trim()) {
       newErrors.companyName = "Company name is required";
@@ -37,15 +57,27 @@ const CompanyForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitSuccess(false);
-    
+
     if (!validateForm()) return;
 
     setIsSubmitting(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 6000)); // Simulate API call
+      const encodedCompanyName = encodeURL(formData.companyName);
+      const encodedCompanyAddress = encodeURL(formData.companyAddress);
+
+      const response = await fetch(
+        `https://dotslash-backend.onrender.com/company?company=${encodedCompanyName}&location=${encodedCompanyAddress}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data: CompanyData = await response.json();
+      setCompanyData(data);
       setSubmitSuccess(true);
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -56,12 +88,12 @@ const CompanyForm = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value
     }));
     if (errors[name as keyof typeof errors]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
         [name]: ""
       }));
@@ -70,16 +102,15 @@ const CompanyForm = () => {
 
   return (
     <>
-      {submitSuccess ? (
-        <div className="min-h-screen flex flex-col ">
+      {submitSuccess && companyData ? (
+        <div className="min-h-screen flex flex-col">
           <nav className="bg-white shadow-md p-4">
             <div className="container mx-auto">
               <h1 className="text-xl font-bold text-gray-800">Company Dashboard</h1>
             </div>
           </nav>
           <div className="flex-1 flex items-center justify-center p-4">
-            <CompanyInfoDisplay
-            />
+            <CompanyInfoDisplay companyData={companyData} />
           </div>
         </div>
       ) : (
@@ -92,10 +123,7 @@ const CompanyForm = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label
-                      htmlFor="companyName"
-                      className="flex items-center space-x-2 text-lg font-semibold text-gray-700"
-                    >
+                    <Label htmlFor="companyName" className="flex items-center space-x-2 text-lg font-semibold text-gray-700">
                       <div className="bg-orange-500 p-2 rounded-full">
                         <Building2 className="h-4 w-4 text-white" />
                       </div>
@@ -109,19 +137,14 @@ const CompanyForm = () => {
                       value={formData.companyName}
                       onChange={handleChange}
                       className={`w-full p-3 border rounded-md focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 ${
-                        errors.companyName ? 'border-red-500' : 'border-gray-300'
+                        errors.companyName ? "border-red-500" : "border-gray-300"
                       }`}
                     />
-                    {errors.companyName && (
-                      <p className="text-red-500 text-sm mt-1">{errors.companyName}</p>
-                    )}
+                    {errors.companyName && <p className="text-red-500 text-sm mt-1">{errors.companyName}</p>}
                   </div>
 
                   <div className="space-y-2">
-                    <Label
-                      htmlFor="companyAddress"
-                      className="flex items-center space-x-2 text-lg font-semibold text-gray-700"
-                    >
+                    <Label htmlFor="companyAddress" className="flex items-center space-x-2 text-lg font-semibold text-gray-700">
                       <div className="bg-black p-2 rounded-full">
                         <MapPin className="h-4 w-4 text-white" />
                       </div>
@@ -135,20 +158,16 @@ const CompanyForm = () => {
                       value={formData.companyAddress}
                       onChange={handleChange}
                       className={`w-full p-3 border rounded-md focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300 ${
-                        errors.companyAddress ? 'border-red-500' : 'border-gray-300'
+                        errors.companyAddress ? "border-red-500" : "border-gray-300"
                       }`}
                     />
-                    {errors.companyAddress && (
-                      <p className="text-red-500 text-sm mt-1">{errors.companyAddress}</p>
-                    )}
+                    {errors.companyAddress && <p className="text-red-500 text-sm mt-1">{errors.companyAddress}</p>}
                   </div>
                 </div>
 
                 {submitSuccess && (
                   <Alert className="mt-4 bg-green-50 text-green-800 border-green-200">
-                    <AlertDescription>
-                      Company details successfully submitted!
-                    </AlertDescription>
+                    <AlertDescription>Company details successfully submitted!</AlertDescription>
                   </Alert>
                 )}
 
@@ -164,7 +183,7 @@ const CompanyForm = () => {
                         Submitting...
                       </>
                     ) : (
-                      'Submit'
+                      "Submit"
                     )}
                   </Button>
                 </div>

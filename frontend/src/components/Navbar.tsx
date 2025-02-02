@@ -49,7 +49,7 @@ export default function Navbar() {
     { href: '/', label: 'Home', icon: Home },
     { href: '/explore', label: 'Explore', icon: Star },
     { href: '/build', label: 'Build with Us', icon: MessageCircle },
-    { href: '/settings', label: 'Settings', icon: Settings },
+    { href: '/sectors', label: 'Sectors', icon: Settings },
   ];
 
   return (
