@@ -4,7 +4,6 @@ import { welcomeTemplate } from "./templates/welcome";
 
 export async function sendMail({
 	to,
-	name,
 	subject,
 	body,
 }: {

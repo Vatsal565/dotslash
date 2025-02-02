@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
+import Image from 'next/image';
 
 interface Agent {
   title: string;
@@ -59,7 +60,9 @@ const AgentCard: React.FC<Agent & {
           className={`${isFirst ? 'w-80 h-[440px]' : 'w-72 h-[400px]'} bg-white rounded-xl p-6 hover:shadow-2xl transition-shadow relative`}
         >
           <div className="w-full h-1/2 mb-4">
-            <img
+            <Image
+              height={50}
+              width={50}
               src={imagePath}
               alt={title}
               className="w-full h-full object-cover rounded-xl"

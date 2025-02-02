@@ -71,6 +71,7 @@ const Contact: React.FC = () => {
       subject: "",
       message: "",
     });
+    setIsSubmitted(true);
   };
 
   const contactInfo: ContactInfo[] = [
