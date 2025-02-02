@@ -239,43 +239,39 @@ const ChatPage: React.FC = () => {
 
   const sendMessage = useCallback(async () => {
     if (!inputMessage.trim() || isLoading) return;
-
+  
+    // Show the user's message immediately
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      text: inputMessage,
+      type: "user",
+      timestamp: new Date(),
+    };
+    setMessages((prev) => [...prev, userMessage]);
+  
     try {
       setIsLoading(true);
       setError(null);
-
-      // Add user's message to the chat
-      const userMessage: Message = {
-        id: Date.now().toString(),
-        text: inputMessage,
-        type: "user",
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, userMessage]);
-
-      // Send message to the backend API
-      const response = await fetch(
-        "https://dotslash-backend.onrender.com/medical-bot",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ msg: inputMessage }),
-        }
-      );
-
+  
+      // Send message to backend API and get response
+      const response = await fetch("https://dotslash-backend.onrender.com/medical-bot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ msg: inputMessage }),
+      });
+  
       if (!response.ok) throw new Error("Failed to send message");
-
+  
       const data = await response.json();
-      console.log(data);
-
-      // Handle the bot response from 'response' field
+  
+      // Immediately update the UI with the bot's response
       const botMessage: Message = {
         id: Date.now().toString(),
-        text: data.response, // Accessing 'response' field now
+        text: data.response, // Using 'response' field directly
         type: "response",
         timestamp: new Date(),
       };
-
+  
       setMessages((prev) => [...prev, botMessage]);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An unknown error occurred.");
@@ -284,20 +280,20 @@ const ChatPage: React.FC = () => {
       setInputMessage("");
     }
   }, [inputMessage, isLoading]);
-
+  
   const handleQuickAction = (action: string) => {
     setInputMessage(action);
     sendMessage();
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <div className="space-y-4">
+    <div className="max-w-4xl mx-auto pt-24">
+      <div className="space-y-4 ">
         {/* Main Chat Container */}
-        <div className="bg-white rounded-2xl shadow-lg">
+        <div className="bg-white rounded-2xl shadow-lg border-1 ">
           {/* Chat Header */}
-          <div className="p-4 border-b">
-            <div className="flex items-center justify-between">
+          <div className="p-4 border-b ">
+            <div className="flex items-center justify-between ">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
                   <Bot className="w-5 h-5 text-white" />
