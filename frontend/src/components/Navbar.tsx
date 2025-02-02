@@ -32,11 +32,10 @@ export default function Navbar() {
         <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 ${
-            isActive
-              ? 'bg-black text-white shadow-lg' // Level 3 (Black) for active state
-              : 'text-black hover:bg-orange-500 hover:text-white' // Level 2 (Orange) for hover
-          }`}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 ${isActive
+            ? 'bg-black text-white shadow-lg' // Level 3 (Black) for active state
+            : 'text-black hover:bg-orange-500 hover:text-white' // Level 2 (Orange) for hover
+            }`}
         >
           <Icon className="w-5 h-5" />
           <span className="font-medium">{label}</span>
@@ -54,9 +53,8 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/80 backdrop-blur-md shadow-lg' : 'bg-white' // Level 1 (White) for background
-      }`}
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-lg' : 'bg-white' // Level 1 (White) for background
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
@@ -66,9 +64,9 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
           >
             <div className="h-10 w-10 rounded-xl bg-black flex items-center justify-center"> {/* Level 3 (Black) for logo background */}
-              <span className="text-white  font-bold text-xl">A</span>
+              <img src="/logo.svg" alt="AI Competitor" className="h-8 w-8" />
             </div>
-            <span className="text-xl font-bold text-black">AI Competitor</span> {/* Level 3 (Black) for text */}
+            <span className="text-xl font-bold text-black">Luminary AI</span> {/* Level 3 (Black) for text */}
           </motion.div>
 
           {/* Desktop Links */}
@@ -99,7 +97,7 @@ export default function Navbar() {
             className="md:hidden"
           >
             {isOpen ? (
-              <X className="w-6 h-6 text-black" /> 
+              <X className="w-6 h-6 text-black" />
             ) : (
               <Menu className="w-6 h-6 text-black" />
             )}

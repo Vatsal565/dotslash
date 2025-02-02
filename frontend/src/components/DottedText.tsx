@@ -7,7 +7,7 @@ interface Point {
 }
 
 const DotMatrixText = () => {
-  const text = 'Competitive Intelligence';
+  const text = 'Luminary AI';
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dotsRef = useRef<Point[]>([]);
 
@@ -30,7 +30,7 @@ const DotMatrixText = () => {
     const createDotMatrix = () => {
       ctx.fillStyle = 'white';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
+
       // Draw text first to sample from
       ctx.fillStyle = 'black';
       ctx.font = 'bold 100px Arial';
@@ -41,13 +41,13 @@ const DotMatrixText = () => {
       // Get image data
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const pixels = imageData.data;
-      
+
       // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const points: Point[] = [];
       const dotSpacing = 8; // Space between dots
-      
+
       // Scan for filled pixels in a grid pattern
       for (let y = 0; y < canvas.height; y += dotSpacing) {
         for (let x = 0; x < canvas.width; x += dotSpacing) {
@@ -59,7 +59,7 @@ const DotMatrixText = () => {
       }
 
       dotsRef.current = points;
-      
+
       // Draw the dots
       ctx.fillStyle = 'gray-700';
       points.forEach(point => {
