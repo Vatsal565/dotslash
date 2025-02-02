@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Menu, X, Home, Star, MessageCircle, User, Settings } from 'lucide-react';
+import { Menu, X, Home, Star, MessageCircle, User, Settings, Contact } from 'lucide-react';
 import Image from 'next/image';
 
 interface NavLinkProps {
@@ -50,6 +50,7 @@ export default function Navbar() {
     { href: '/explore', label: 'Explore', icon: Star },
     { href: '/build', label: 'Build with Us', icon: MessageCircle },
     { href: '/sectors', label: 'Sectors', icon: Settings },
+    { href: '/contact', label: 'Contact Us', icon: Contact },
   ];
 
   return (
