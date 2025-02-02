@@ -38,38 +38,38 @@ const Work = () => {
   const steps: Step[] = [
     {
       icon: Search,
-      title: "Enter Company & Location",
+      title: "Company Research & Competitor Analysis",
       description:
-        "Provide the company name and location you want to analyze.",
+        "Conduct in-depth company research, competitor analysis, and SWOT analysis using just the company name and location—regardless of its size. Get valuable SEO keywords for strategic growth.",
       bgcolor: "bg-blue-50",
       iconcolor: "text-blue-500",
     },
     {
       icon: Users,
-      title: "Identify Competitors",
+      title: "Build Your Business",
       description:
-        "We'll identify the key competitors in the specified market.",
+        "Generate a unique company name and tagline, and connect with incubation cells directly through our platform to accelerate your startup journey.",
       bgcolor: "bg-green-50",
       iconcolor: "text-green-500",
     },
     {
       icon: ShieldCheck,
-      title: "Analyze Strengths & Weaknesses",
-      description: "Discover your competitors' strengths and weaknesses.",
+      title: "Pretrained Sector Models",
+      description: "Access AI-powered chatbots and fraud detection systems tailored for healthcare, finance, legal, and e-commerce. Our solutions include medical bots for general medical queries and health insurance fraud detection.",
       bgcolor: "bg-purple-50",
       iconcolor: "text-purple-500",
     },
     {
       icon: Lightbulb,
-      title: "Gain Actionable Insights",
-      description: "Receive valuable insights to improve your strategy.",
+      title: "Marketing Bot & Strategy",
+      description: "Leverage AI-driven marketing bots for customized marketing strategies. We provide solutions for large-scale user engagement, competition analysis, and sector-based services to optimize your business growth.",
       bgcolor: "bg-orange-50",
       iconcolor: "text-orange-500",
     },
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-2 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -80,14 +80,14 @@ const Work = () => {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 rounded-full mb-4">
             <CircleHelp className="w-5 h-5 text-orange-500" />
-            <span className="text-orange-700 font-medium">How It Works?</span>
+            <span className="text-orange-700 font-medium">Who we are?</span>
           </div>
-          <h2 className="text-4xl font-bold mb-6 mt-2">
-            Unlock Your Competitive Advantage
+          <h2 className="text-5xl font-bold mb-6 mt-2">
+            We are AIaaS!
           </h2>
-          <p className="text-gray-600 text-lg leading-relaxed">
-            Understand your competition and gain the insights you need to succeed.
-            Our platform makes competitive analysis easy and effective.
+          <p className="text-gray-600 text-3xl leading-relaxed">
+            Research, Strategy & Growth in One Platform
+
           </p>
         </motion.div>
 
@@ -149,7 +149,7 @@ const Work = () => {
           className="mt-16 text-center"
         >
           <p className="text-gray-600 mb-6">
-            Ready to unlock your competitive advantage?
+            Ready to unlock your AI world?
           </p>
           <motion.button
             whileHover={{ scale: 1.05 }}
