@@ -118,7 +118,7 @@ const Footer: React.FC = () => {
           className="border-t-2 border-[#151616]/10 py-6 flex flex-col md:flex-row 
           justify-between items-center gap-4">
           <div className="flex items-center gap-2 text-sm text-[#151616]/70">
-            <span>© 2025 SoulBuddy. All rights reserved.</span>
+            <span>© 2025 Luminary AI. All rights reserved.</span>
             <span className="flex items-center gap-1">
               Made with <Heart className="w-4 h-4 text-level-2" /> by Team
               404_#NotFound
