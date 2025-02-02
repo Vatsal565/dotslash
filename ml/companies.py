@@ -1,10 +1,11 @@
 from groq import Groq
 import json
 import re
+import dotenv
 
-api_key = "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"
+dotenv.load_dotenv()
 
-def get_company_info(company_name: str, location: str):
+def get_company_info(company_name: str, location: str, api_key: str):
     """Fetches company details using Groq AI."""
     client = Groq(api_key=api_key)
 
@@ -12,6 +13,12 @@ def get_company_info(company_name: str, location: str):
     prompt = f"""
     Extract key details about the company based on the given prompt:
     Strictly always return response in JSON format as shown in example
+
+    ### Instructions:
+    - Ensure the JSON response is well-formed and strictly follows valid JSON syntax.
+    - **Do not include unbalanced curly braces `{{}}` inside any key or value.**
+    - **Do not wrap JSON in triple backticks (` ``` `).**
+    - If any data is unavailable, return "Not Available" instead of leaving fields empty.
     
     Company: {company_name}
     Location: {location}
@@ -122,14 +129,3 @@ def get_company_info(company_name: str, location: str):
     except json.JSONDecodeError as e:
         print("Invalid JSON Response:", response_content)
         raise ValueError("Failed to parse response as JSON.") from e
-
-if __name__ == "__main__":
-    company_name = "Avadh Group"
-    location = "Surat, India"
-    api_key = "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"
-
-    try:
-        company_info = get_company_info(company_name, location)
-        print(json.dumps(company_info, indent=4))  # Pretty print JSON output
-    except Exception as e:
-        print("Error:", e)
